@@ -7,6 +7,7 @@ import {
   setValue1,
   setValue2,
   setCalculatingStart,
+  setPrevOperationEqual,
   setCurrentValue,
 } from "../../store/slice";
 import { calculate } from "../../utils/utils";
@@ -17,6 +18,9 @@ const OperationsButtons = () => {
   const value1 = useSelector((state) => state.value1);
   const value2 = useSelector((state) => state.value2);
   const operation = useSelector((state) => state.operation);
+  const isPrevOperationEqual = useSelector(
+    (state) => state.isPrevOperationEqual
+  );
 
   const getCurrentResult = () => {
     const result = calculate(value1, Number(currentValue), operation);
@@ -46,16 +50,17 @@ const OperationsButtons = () => {
         dispatch(setCurrentValue(result.toString()));
         dispatch(setCalculatingStart(true));
       }
+      dispatch(setPrevOperationEqual(true));
     } else {
-      if (operation) {
+      if (operation && !isPrevOperationEqual) {
         getCurrentResult();
         if (operation !== type) {
           changeOperation(type);
         }
       } else {
         changeOperation(type);
-
         dispatch(setValue1(Number(currentValue)));
+        dispatch(setPrevOperationEqual(false));
       }
     }
   };

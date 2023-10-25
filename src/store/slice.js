@@ -7,6 +7,7 @@ const initialState = {
   value1: 0,
   value2: 0,
   isCalculatingStart: false,
+  isPrevOperationEqual: false,
 };
 
 const calculatorSlice = createSlice({
@@ -18,6 +19,9 @@ const calculatorSlice = createSlice({
     },
     setCalculatingStart: (state, action) => {
       state.isCalculatingStart = action.payload;
+    },
+    setPrevOperationEqual: (state, action) => {
+      state.isPrevOperationEqual = action.payload;
     },
     setValue1: (state, action) => {
       state.value1 = action.payload;
@@ -59,6 +63,7 @@ export const {
   setCurrentValue,
   setOperation,
   setCalculatingStart,
+  setPrevOperationEqual,
   setValue1,
   setValue2,
   setSign,
